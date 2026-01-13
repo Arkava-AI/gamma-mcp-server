@@ -1,0 +1,52 @@
+{
+  "name": "gamma-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for Gamma.app API integration - Create presentations, documents, and websites via Claude Desktop",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "gamma-mcp-server": "./dist/index.js"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "format": "prettier --write src/**/*.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test",
+    "inspect": "npx @modelcontextprotocol/inspector"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "gamma",
+    "presentations",
+    "documents",
+    "ai",
+    "claude",
+    "anthropic"
+  ],
+  "author": "Amer Altaf <amer@arkava.ai>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "axios": "^1.7.9",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^9.16.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
