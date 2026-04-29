@@ -1,5 +1,5 @@
 {
-  "name": "@amer/gamma-mcp-server",
+  "name": "@arkava-ai/gamma-mcp-server",
   "version": "1.0.0",
   "description": "MCP server for Gamma.app - Create presentations, documents, and websites via any MCP-compatible AI assistant (Claude Code, Claude Desktop, OpenCode, Codex, Gemini CLI)",
   "type": "module",
