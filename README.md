@@ -3,8 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
-[![npm version](https://img.shields.io/npm/v/gamma-mcp-server)](https://npmjs.com/package/gamma-mcp-server)
-[![npm downloads](https://img.shields.io/npm/dm/gamma-mcp-server)](https://npmjs.com/package/gamma-mcp-server)
+[![npm version](https://img.shields.io/npm/v/@Arkava-AI/gamma-mcp-server)](https://npmjs.com/package/@Arkava-AI/gamma-mcp-server)
+[![npm downloads](https://img.shields.io/npm/dm/@Arkava-AI/gamma-mcp-server)](https://npmjs.com/package/@Arkava-AI/gamma-mcp-server)
 [![CI](https://github.com/Arkava-AI/gamma-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/Arkava-AI/gamma-mcp-server/actions)
 [![MCP SDK](https://img.shields.io/badge/MCP%20SDK-1.0-blue)](https://modelcontextprotocol.io)
 
