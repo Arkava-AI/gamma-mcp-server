@@ -297,8 +297,33 @@ export const ShareEmailInputSchema = z
       .optional()
       .describe("Optional personal message to include in the share email"),
 
+    waitForCompletion: z
+      .boolean()
+      .optional()
+      .describe("Wait for generation to complete before sharing (max 5 minutes)"),
+
     response_format: ResponseFormatSchema,
   })
   .strict();
 
 export type ShareEmailInput = z.infer<typeof ShareEmailInputSchema>;
+
+export const HealthInputSchema = z
+  .object({
+    response_format: ResponseFormatSchema,
+  })
+  .strict();
+
+export type HealthInput = z.infer<typeof HealthInputSchema>;
+
+export const ArchiveInputSchema = z
+  .object({
+    gammaId: z
+      .string()
+      .min(1, "Gamma ID is required")
+      .describe("The ID of the Gamma to archive"),
+    response_format: ResponseFormatSchema,
+  })
+  .strict();
+
+export type ArchiveInput = z.infer<typeof ArchiveInputSchema>;

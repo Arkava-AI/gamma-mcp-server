@@ -43,7 +43,7 @@ EXAMPLE:
   message: "Here's the presentation we discussed"
 }
 
-NOTE: Ensure the generation is complete before sharing.`,
+NOTE: Ensure the generation is complete before sharing. Use waitForCompletion: true to automatically wait up to 5 minutes.`,
       inputSchema: ShareEmailInputSchema,
       annotations: {
         readOnlyHint: false,
@@ -54,6 +54,10 @@ NOTE: Ensure the generation is complete before sharing.`,
     },
     async (params: ShareEmailInput) => {
       try {
+        if (params.waitForCompletion) {
+          await client.waitForCompletion(params.generationId);
+        }
+
         const response = await client.shareEmail(
           params.generationId,
           params.emails,

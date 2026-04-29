@@ -90,8 +90,9 @@ export class GammaClient {
         return status;
       }
 
-      // Wait before next poll
-      await this.sleep(POLL_INTERVAL_MS);
+      // Wait before next poll (with jitter to avoid thundering herd)
+      const jitter = Math.random() * 400;
+      await this.sleep(POLL_INTERVAL_MS + jitter);
     }
 
     throw new Error(ERROR_MESSAGES.GENERATION_TIMEOUT);
@@ -136,6 +137,26 @@ export class GammaClient {
   }
 
   /**
+   * Health check — verifies API key is valid and API is reachable
+   */
+  async healthCheck(): Promise<{ healthy: boolean; message: string }> {
+    try {
+      await this.makeRequest<{ themes: unknown[]; total: number; hasMore: boolean }>(
+        "GET",
+        "/themes",
+        undefined,
+        { limit: 1 }
+      );
+      return { healthy: true, message: "Gamma API is reachable and key is valid." };
+    } catch (error) {
+      return {
+        healthy: false,
+        message: error instanceof Error ? error.message : "Unknown error",
+      };
+    }
+  }
+
+  /**
    * Share a generation via email
    * Note: This endpoint may not be available in all API versions
    */
@@ -150,7 +171,17 @@ export class GammaClient {
       {
         emails,
         ...(message && { message }),
-      }
+      },
+  );
+  }
+
+  /**
+   * Archive a Gamma (marks it as archived in the workspace)
+   */
+  async archive(gammaId: string): Promise<{ archived: boolean }> {
+    return this.makeRequest<{ archived: boolean }>(
+      "POST",
+      `/gammas/${encodeURIComponent(gammaId)}/archive`
     );
   }
 
@@ -165,18 +196,32 @@ export class GammaClient {
     method: "GET" | "POST" | "PUT" | "DELETE",
     endpoint: string,
     data?: unknown,
-    params?: Record<string, unknown>
+    params?: Record<string, unknown>,
+    retries = 3
   ): Promise<T> {
-    try {
-      const response = await this.client.request<T>({
-        method,
-        url: endpoint,
-        data,
-        params,
-      });
-      return response.data;
-    } catch (error) {
-      throw this.handleError(error);
+    let attempt = 0;
+    while (true) {
+      try {
+        const response = await this.client.request<T>({
+          method,
+          url: endpoint,
+          data,
+          params,
+        });
+        return response.data;
+      } catch (error) {
+        if (!axios.isAxiosError(error)) {
+          throw this.handleError(error);
+        }
+        const status = (error as AxiosError<GammaApiError>).response?.status;
+        const retryable = status === 429 || status === 500 || status === 502 || status === 503;
+        if (!retryable || attempt >= retries) {
+          throw this.handleError(error);
+        }
+        const backoffMs = Math.min(1000 * 2 ** attempt + Math.random() * 500, 10000);
+        await this.sleep(backoffMs);
+        attempt++;
+      }
     }
   }
 

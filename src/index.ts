@@ -18,6 +18,8 @@ import {
   registerGenerationTools,
   registerListTools,
   registerShareTools,
+  registerHealthTools,
+  registerArchiveTools,
 } from "./tools/index.js";
 
 /**
@@ -74,6 +76,8 @@ async function main(): Promise<void> {
   registerGenerationTools(server, client);
   registerListTools(server, client);
   registerShareTools(server, client);
+  registerHealthTools(server, client);
+  registerArchiveTools(server, client);
 
   // Connect to stdio transport for Claude Desktop
   const transport = new StdioServerTransport();

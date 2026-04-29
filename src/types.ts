@@ -291,3 +291,13 @@ export enum ResponseFormat {
   MARKDOWN = "markdown",
   JSON = "json",
 }
+
+export interface HealthCheckResponse {
+  healthy: boolean;
+  message: string;
+}
+
+export interface ArchiveResponse {
+  archived: boolean;
+  gammaId: string;
+}

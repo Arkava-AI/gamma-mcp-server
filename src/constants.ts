@@ -20,8 +20,10 @@ export const MAX_CARDS_ULTRA = 75;
 export const MAX_INPUT_TOKENS = 100000; // ~400,000 characters
 
 // Polling configuration for generation status
-export const POLL_INTERVAL_MS = 2000; // 2 seconds between status checks
-export const MAX_POLL_ATTEMPTS = 150; // 5 minutes max wait (150 * 2s)
+const envPollInterval = parseInt(process.env.GAMMA_POLL_INTERVAL_MS || "", 10);
+const envMaxPollAttempts = parseInt(process.env.GAMMA_MAX_POLL_ATTEMPTS || "", 10);
+export const POLL_INTERVAL_MS = envPollInterval > 0 ? envPollInterval : 2000;
+export const MAX_POLL_ATTEMPTS = envMaxPollAttempts > 0 ? envMaxPollAttempts : 150;
 
 // Supported formats
 export const GAMMA_FORMATS = ["presentation", "document", "webpage", "social"] as const;

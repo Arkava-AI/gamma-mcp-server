@@ -205,6 +205,8 @@ Restart Gemini CLI after editing the config to load the server.
 | `gamma_list_themes` | Browse available visual themes |
 | `gamma_list_folders` | List your Gamma folders |
 | `gamma_share_email` | Share content via email |
+| `gamma_health` | Verify server and API are reachable |
+| `gamma_archive` | Archive a Gamma from your workspace |
 
 ### gamma_generate
 
@@ -259,6 +261,17 @@ npm install
 npm run build
 # Restart your AI assistant
 ```
+
+---
+
+## Environment Variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `GAMMA_API_KEY` | (required) | Your Gamma API key (`sk-gamma-...`) |
+| `GAMMA_API_BASE_URL` | `https://public-api.gamma.app/v1.0` | Override for self-hosted Gamma instances |
+| `GAMMA_POLL_INTERVAL_MS` | `2000` | Milliseconds between status polls (default 2s) |
+| `GAMMA_MAX_POLL_ATTEMPTS` | `150` | Max polling attempts before timeout (default 150 × 2s = 5 min) |
 
 ---
 

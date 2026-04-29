@@ -16,7 +16,7 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write src/**/*.ts",
     "typecheck": "tsc --noEmit",
-    "test": "node --test",
+    "test": "node --test --import tsx src/__tests__/schemas.test.ts",
     "inspect": "npx @modelcontextprotocol/inspector"
   },
   "keywords": [
