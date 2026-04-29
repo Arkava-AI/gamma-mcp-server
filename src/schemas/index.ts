@@ -61,7 +61,7 @@ export const GenerateInputSchema = z
     prompt: z
       .string()
       .min(1, "Prompt is required")
-      .max(400000, "Prompt exceeds maximum length (~100k tokens)")
+      .max(50000, "Prompt exceeds maximum length. Keep prompts under 50,000 characters (~12,500 tokens).")
       .describe(
         "The content to generate from. Can be a one-line prompt, messy notes, or polished content. Supports 60+ languages."
       ),
@@ -129,6 +129,18 @@ export const GenerateInputSchema = z
       .max(200)
       .optional()
       .describe("Custom title. If not provided, Gamma AI generates one from the content."),
+
+    headerContent: z
+      .string()
+      .max(2000)
+      .optional()
+      .describe("Custom header content for webpages."),
+    
+    footerContent: z
+      .string()
+      .max(2000)
+      .optional()
+      .describe("Custom footer content for webpages."),
 
     waitForCompletion: z
       .boolean()

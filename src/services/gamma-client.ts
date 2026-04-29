@@ -188,7 +188,7 @@ export class GammaClient {
       const axiosError = error as AxiosError<GammaApiError>;
 
       if (axiosError.response) {
-        const { status, data } = axiosError.response;
+        const { status } = axiosError.response;
 
         switch (status) {
           case 401:
@@ -203,7 +203,7 @@ export class GammaClient {
             );
           case 400:
             return new Error(
-              `Invalid request: ${data?.message || "Check your parameters and try again."}`
+              "Invalid request. Check your parameters (format, size, themeId, etc.) and try again."
             );
           case 500:
           case 502:
@@ -213,7 +213,7 @@ export class GammaClient {
             );
           default:
             return new Error(
-              `Gamma API error (${status}): ${data?.message || axiosError.message}`
+              `Gamma API error (${status}). Please try again or contact Gamma support if the issue persists.`
             );
         }
       }
@@ -254,7 +254,7 @@ export function createGammaClient(): GammaClient {
 
   if (!apiKey.startsWith("sk-gamma-")) {
     throw new Error(
-      `Invalid API key format. Gamma API keys should start with 'sk-gamma-'. Got: ${apiKey.substring(0, 10)}...`
+      "Invalid API key format. Gamma API keys should start with 'sk-gamma-'. Check your GAMMA_API_KEY environment variable."
     );
   }
 

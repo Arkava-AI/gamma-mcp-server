@@ -5,13 +5,14 @@
  */
 
 // API Configuration
-export const GAMMA_API_BASE_URL = "https://public-api.gamma.app/v1.0";
+export const GAMMA_API_BASE_URL = process.env.GAMMA_API_BASE_URL || "https://public-api.gamma.app/v1.0";
 export const GAMMA_API_TIMEOUT = 60000; // 60 seconds for generation requests
 
 // Response limits
 export const CHARACTER_LIMIT = 25000;
 export const DEFAULT_PAGE_LIMIT = 20;
 export const MAX_PAGE_LIMIT = 100;
+export const MAX_PROMPT_CHARS = 50000; // ~12,500 tokens — safe cap for prompts
 
 // Generation limits
 export const MAX_CARDS_PRO = 60;
