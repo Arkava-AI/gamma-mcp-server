@@ -1,0 +1,38 @@
+name: Feature Request
+
+description: Suggest a new tool, capability, or improvement
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature requests are welcome. Please describe the problem you're trying to solve.
+
+  - type: textarea
+    attributes:
+      label: Feature Description
+      description: A clear description of the feature
+      placeholder: Describe the feature concisely
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Use Case
+      description: How would this feature be used?
+      placeholder: |
+        As a [user type], I want [goal] so that [benefit].
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative approaches you've considered
+      placeholder: Describe alternatives
+
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: Any other context about the feature request
+      placeholder: Diagrams, mockups, references

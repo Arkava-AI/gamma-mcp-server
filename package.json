@@ -7,7 +7,17 @@
   "bin": {
     "gamma-mcp-server": "./dist/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Arkava-AI/gamma-mcp-server"
+  },
+  "bugs": {
+    "url": "https://github.com/Arkava-AI/gamma-mcp-server/issues"
+  },
+  "homepage": "https://github.com/Arkava-AI/gamma-mcp-server#readme",
+  "files": ["dist"],
   "scripts": {
+    "prepare": "npm run build",
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
@@ -16,7 +26,9 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "format": "prettier --write src/**/*.ts",
     "typecheck": "tsc --noEmit",
-    "test": "node --test --import tsx src/__tests__/schemas.test.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
     "inspect": "npx @modelcontextprotocol/inspector"
   },
   "keywords": [
@@ -35,7 +47,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.6.1",
+    "@modelcontextprotocol/sdk": "^1.0.0",
     "axios": "^1.7.9",
     "zod": "^3.23.8"
   },
@@ -47,6 +59,7 @@
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.4.2",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   }
 }

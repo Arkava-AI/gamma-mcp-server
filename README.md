@@ -2,7 +2,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
-[![MCP SDK](https://img.shields.io/badge/MCP%20SDK-1.6.1-blue)](https://modelcontextprotocol.io)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue)](https://www.typescriptlang.org/)
+[![npm version](https://img.shields.io/npm/v/gamma-mcp-server)](https://npmjs.com/package/gamma-mcp-server)
+[![npm downloads](https://img.shields.io/npm/dm/gamma-mcp-server)](https://npmjs.com/package/gamma-mcp-server)
+[![CI](https://github.com/Arkava-AI/gamma-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/Arkava-AI/gamma-mcp-server/actions)
+[![MCP SDK](https://img.shields.io/badge/MCP%20SDK-1.0-blue)](https://modelcontextprotocol.io)
 
 A Model Context Protocol (MCP) server that integrates [Gamma.app](https://gamma.app) with AI assistants. Create presentations, documents, webpages, and social posts directly from your AI conversations.
 

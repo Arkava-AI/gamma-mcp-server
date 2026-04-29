@@ -1,0 +1,60 @@
+name: Bug Report
+
+description: Report something that isn't working as expected
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please search existing issues first — your bug may already be known.
+
+  - type: textarea
+    attributes:
+      label: Bug Description
+      description: A clear description of what went wrong
+      placeholder: Describe the bug concisely
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      description: How to reproduce the issue
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: What you expected to happen
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Actual Behavior
+      description: What actually happened
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Gamma MCP Server Version
+      description: Output of `npm list gamma-mcp-server` or commit SHA
+      placeholder: e.g. v1.0.0 or cc9d859
+
+  - type: input
+    attributes:
+      label: MCP Client
+      description: Which AI assistant are you using?
+      placeholder: e.g. Claude Code, Claude Desktop, OpenCode
+
+  - type: textarea
+    attributes:
+      label: Logs
+      description: Relevant log output (remove any sensitive information)
+      placeholder: Paste log output here
