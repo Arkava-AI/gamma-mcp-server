@@ -4,7 +4,9 @@
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org)
 [![MCP SDK](https://img.shields.io/badge/MCP%20SDK-1.6.1-blue)](https://modelcontextprotocol.io)
 
-A Model Context Protocol (MCP) server that integrates [Gamma.app](https://gamma.app) with Claude Desktop. Create presentations, documents, webpages, and social posts directly from your Claude conversations.
+A Model Context Protocol (MCP) server that integrates [Gamma.app](https://gamma.app) with AI assistants. Create presentations, documents, webpages, and social posts directly from your AI conversations.
+
+Works with: **Claude Code**, **Claude Desktop**, **OpenCode**, **GitHub Copilot CLI**, **Google Gemini CLI**, and any other MCP-compatible AI assistant.
 
 ## Features
 
@@ -19,7 +21,7 @@ A Model Context Protocol (MCP) server that integrates [Gamma.app](https://gamma.
 ### 1. Clone and Install
 
 ```bash
-git clone https://github.com/ArkavaLtd/gamma-mcp-server.git
+git clone https://github.com/Arkava-AI/gamma-mcp-server.git
 cd gamma-mcp-server
 npm install
 npm run build
@@ -34,12 +36,23 @@ npm run build
 
 > **Note**: Requires Gamma Pro, Ultra, Team, or Business account.
 
-### 3. Configure Claude Desktop
+### 3. Configure Your AI Assistant
 
-Add to your Claude Desktop configuration file:
+Choose your AI assistant below for setup instructions.
 
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+---
+
+## Claude Desktop (macOS / Windows / Linux)
+
+### Config File
+
+| OS | Path |
+|---|---|
+| macOS | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| Linux | `~/.config/Claude/claude_desktop_config.json` |
+| Windows | `%APPDATA%\Claude\claude_desktop_config.json` |
+
+Add to the `mcpServers` object:
 
 ```json
 {
@@ -55,9 +68,132 @@ Add to your Claude Desktop configuration file:
 }
 ```
 
-### 4. Restart Claude Desktop
+### Restart Claude Desktop
 
 Restart Claude Desktop to load the new MCP server. You should see "gamma" in your MCP servers list.
+
+---
+
+## Claude Code
+
+Claude Code uses the same MCP configuration as Claude Desktop. If you've already configured Claude Desktop, you're all set.
+
+For **project-level configuration**, create a `.claude/settings.json` file in your project directory with the same `mcpServers` structure shown above. This allows different projects to use different MCP server configurations.
+
+---
+
+## OpenCode
+
+### Config File
+
+| Scope | Path |
+|---|---|
+| Global (user) | `~/.config/opencode/opencode.json` |
+| Project | `./opencode.json` (in your project root) |
+
+### JSON Structure
+
+```json
+{
+  "mcp": {
+    "gamma": {
+      "type": "local",
+      "command": ["node", "/absolute/path/to/gamma-mcp-server/dist/index.js"],
+      "enabled": true,
+      "environment": {
+        "GAMMA_API_KEY": "sk-gamma-your-api-key-here"
+      }
+    }
+  }
+}
+```
+
+> **Note**: OpenCode uses a different config format from Claude Desktop — `mcp` (not `mcpServers`), `type` field required (`"local"` or `"remote"`), `command` is an array, and env vars go under `environment`.
+
+Restart OpenCode after editing the config to load the server.
+
+---
+
+## GitHub Copilot CLI
+
+### Config File
+
+- `~/.copilot/mcp-config.json`
+
+### JSON Structure
+
+```json
+{
+  "mcpServers": {
+    "gamma": {
+      "type": "local",
+      "command": "node",
+      "args": ["/absolute/path/to/gamma-mcp-server/dist/index.js"],
+      "env": {
+        "GAMMA_API_KEY": "sk-gamma-your-api-key-here"
+      },
+      "tools": ["*"]
+    }
+  }
+}
+```
+
+> **Note**: Requires the GitHub Copilot CLI (`gh copilot`) — not the same as OpenAI Codex.
+
+---
+
+## OpenAI Codex
+
+### Config File
+
+- `~/.codex/config.toml` (TOML format, not JSON)
+
+### TOML Structure
+
+```toml
+[mcp_servers.gamma]
+command = "node"
+args = ["/absolute/path/to/gamma-mcp-server/dist/index.js"]
+enabled = true
+
+[mcp_servers.gamma.env]
+GAMMA_API_KEY = "sk-gamma-your-api-key-here"
+```
+
+> **Note**: Codex uses TOML format, not JSON. The `env` section is a separate table under `[mcp_servers.gamma.env]`.
+
+---
+
+## Google Gemini CLI
+
+### Config File
+
+| Scope | Path |
+|---|---|
+| User | `~/.gemini/settings.json` |
+| Project | `.gemini/settings.json` (in your project root) |
+
+### JSON Structure
+
+```json
+{
+  "mcpServers": {
+    "gamma": {
+      "command": "node",
+      "args": ["/absolute/path/to/gamma-mcp-server/dist/index.js"],
+      "cwd": "/absolute/path/to/gamma-mcp-server",
+      "env": {
+        "GAMMA_API_KEY": "sk-gamma-your-api-key-here"
+      },
+      "timeout": 30000
+    }
+  }
+}
+```
+
+Restart Gemini CLI after editing the config to load the server.
+
+---
 
 ## Available Tools
 
@@ -80,7 +216,7 @@ Create new content using Gamma's AI.
 - `social`: 1x1, 4x5, 9x16
 - `webpage`: fluid
 
-**Example prompts in Claude:**
+**Example prompts in your AI assistant:**
 - "Create a 5-slide presentation about sustainable energy"
 - "Generate a document explaining our Q1 results"
 - "Make a social media post announcing our new product"
@@ -97,9 +233,11 @@ Remix an existing Gamma with new content or variable substitutions.
 {
   "templateId": "gamma_xyz789",
   "prompt": "Update for Q1 2025",
-  "variables": { "company_name": "Arkava Ltd" }
+  "variables": { "company_name": "Acme Corp" }
 }
 ```
+
+---
 
 ## Multi-Machine Setup
 
@@ -107,11 +245,11 @@ This repository is designed for easy deployment across multiple machines:
 
 ```bash
 # On each machine:
-git clone https://github.com/ArkavaLtd/gamma-mcp-server.git
+git clone https://github.com/Arkava-AI/gamma-mcp-server.git
 cd gamma-mcp-server
 npm install && npm run build
 
-# Then configure Claude Desktop with the local path
+# Then configure your AI assistant with the local path
 ```
 
 To update on any machine:
@@ -119,8 +257,10 @@ To update on any machine:
 git pull
 npm install
 npm run build
-# Restart Claude Desktop
+# Restart your AI assistant
 ```
+
+---
 
 ## Development
 
@@ -144,6 +284,8 @@ npm run typecheck
 npm run inspect
 ```
 
+---
+
 ## Project Structure
 
 ```
@@ -161,36 +303,47 @@ gamma-mcp-server/
 └── eslint.config.js
 ```
 
+---
+
 ## API Credits
 
 Gamma uses a credit-based system for API usage. Credits are consumed per generation. Monitor your usage in the [Gamma dashboard](https://gamma.app/settings) and enable auto-recharge if needed.
+
+---
 
 ## Troubleshooting
 
 | Error | Solution |
 |-------|----------|
-| "GAMMA_API_KEY environment variable is required" | Ensure `env.GAMMA_API_KEY` is set in Claude Desktop config |
+| "GAMMA_API_KEY environment variable is required" | Ensure `env.GAMMA_API_KEY` is set in your AI assistant's MCP config |
 | "Invalid API key" | Keys should start with `sk-gamma-`. Verify the complete key. |
 | "Rate limit exceeded" | Wait a few minutes. Contact Gamma support for higher limits. |
 | "Insufficient credits" | Top up credits or enable auto-recharge in Gamma settings. |
+
+---
 
 ## Requirements
 
 - **Node.js 18+**
 - **Gamma Pro/Ultra/Team/Business account** (for API access)
-- **Claude Desktop** (for MCP integration)
+- **MCP-compatible AI assistant** (Claude Code, Claude Desktop, OpenCode, GitHub Copilot CLI, Gemini CLI, etc.)
 
-## Author
+---
 
-**Amer Altaf** - [Arkava Ltd](https://arkava.ai)
+## Maintainer
+
+**Arkava Ltd** — [engage@arkava.ai](mailto:engage@arkava.ai)
+
+---
 
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
 
+---
+
 ## Links
 
 - [Gamma Developer Docs](https://developers.gamma.app)
 - [MCP Specification](https://modelcontextprotocol.io)
-- [Claude Desktop](https://claude.ai/download)
 - [Gamma.app](https://gamma.app)

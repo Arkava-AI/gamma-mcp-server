@@ -6,7 +6,8 @@
  * Enables Claude Desktop to create presentations, documents, webpages,
  * and social posts using Gamma's AI-powered content generation.
  *
- * @author Amer Altaf <amer@arkava.ai>
+ * Gamma MCP Server - Model Context Protocol server for Gamma.app
+ * Built by Arkava Ltd (https://arkava.ai)
  * @license MIT
  */
 

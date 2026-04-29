@@ -1,7 +1,7 @@
 {
   "name": "gamma-mcp-server",
   "version": "1.0.0",
-  "description": "MCP server for Gamma.app API integration - Create presentations, documents, and websites via Claude Desktop",
+  "description": "MCP server for Gamma.app - Create presentations, documents, and websites via any MCP-compatible AI assistant (Claude Code, Claude Desktop, OpenCode, Codex, Gemini CLI)",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -29,7 +29,7 @@
     "claude",
     "anthropic"
   ],
-  "author": "Amer Altaf <amer@arkava.ai>",
+  "author": "Arkava Ltd <engage@arkava.ai>",
   "license": "MIT",
   "engines": {
     "node": ">=18"

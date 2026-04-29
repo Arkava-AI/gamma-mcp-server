@@ -214,7 +214,7 @@ EXAMPLE:
 {
   templateId: "gamma_xyz789",
   prompt: "Update for Q1 2025 results",
-  variables: { "company_name": "Arkava Ltd", "quarter": "Q1 2025" }
+  variables: { "company_name": "Acme Corp", "quarter": "Q1 2025" }
 }`,
       inputSchema: FromTemplateInputSchema,
       annotations: {
