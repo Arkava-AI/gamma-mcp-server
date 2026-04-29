@@ -1,5 +1,5 @@
 {
-  "name": "@Arkava-AI/gamma-mcp-server",
+  "name": "@amer/gamma-mcp-server",
   "version": "1.0.0",
   "description": "MCP server for Gamma.app - Create presentations, documents, and websites via any MCP-compatible AI assistant (Claude Code, Claude Desktop, OpenCode, Codex, Gemini CLI)",
   "type": "module",
@@ -14,7 +14,7 @@
   "bugs": {
     "url": "https://github.com/Arkava-AI/gamma-mcp-server/issues"
   },
-  "mcpName": "io.github.Arkava-AI/gamma-mcp-server",
+  "mcpName": "io.github.amer-prog/gamma-mcp-server",
   "homepage": "https://github.com/Arkava-AI/gamma-mcp-server#readme",
   "files": [
     "dist"
