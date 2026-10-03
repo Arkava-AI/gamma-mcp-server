@@ -1,0 +1,43 @@
+# albion-gates.yml — albion-secure + albion-qual as required checks on main
+# (ARK-5401, EO466 wave-2 onboarding; ADR-059).
+#
+# Thin standalone workflow consuming the arkava-infrastructure reusable
+# workflow cross-repo (programme convention: standalone workflows, no local
+# uses:./ paths), pinned to infra@develop.
+#
+# The reusable workflow's runner executes scripts/gates/run_gate.py from
+# THIS repo's checkout, so the runner and its vendored quality engine are
+# vendored at scripts/gates/ (byte-identical to arkava-infrastructure@develop;
+# SHA256s recorded in the onboarding PR body).
+#
+# PR runs leave base-ref empty so the reusable workflow resolves the PR's
+# own merge base and diff-scopes its stages to the PR diff — pre-existing
+# debt on the base branch does not false-red the PR (EO466 wave-1 lesson).
+# Manual dispatch may pass base-ref to diff-scope against a chosen ref.
+#
+# Docs-only PRs take the mechanical-only fast path inside the runner
+# (ADR-059 S3: qual scan stages skipped, mechanical floor still runs, the
+# verdict artefact is still emitted and bound to the tree).
+#
+# Check names surface as "gates / gate/albion-secure" and
+# "gates / gate/albion-qual" (caller job name / called job name); branch
+# protection on main requires exactly those contexts.
+
+name: gates
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      base-ref:
+        description: "Merge-base ref for diff-scoped stages"
+        required: false
+        default: "production"
+
+jobs:
+  gates:
+    uses: Arkava-Ai/arkava-infrastructure/.github/workflows/albion-gates.yml@develop
+    with:
+      base-ref: ${{ inputs.base-ref || '' }}
